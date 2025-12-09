@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PT AGRIS - Profil Perusahaan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2d5aa0;
+            --accent: #e63946;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f5f7fa;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            left: 0;
+            bottom: -5px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 10rem 0 5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-button:hover {
+            background-color: #c1121f;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background: var(--accent);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Founders Section */
+        .founders-section {
+            background-color: #f0f4f8;
+        }
+
+        .founders-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .founder-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+        }
+
+        .founder-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .founder-img {
+            height: 280px;
+            width: 100%;
+            object-fit: cover;
+            border-bottom: 4px solid var(--secondary);
+        }
+
+        .founder-info {
+            padding: 1.8rem;
+        }
+
+        .founder-name {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .founder-title {
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .founder-bio {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .founder-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .founder-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: var(--light);
+            color: var(--primary);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .founder-social a:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        /* Services Section */
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, #1a365d 0%, #2d5aa0 100%);
+            color: white;
+        }
+
+        .contact-section .section-title h2 {
+            color: white;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-details {
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-top: 5px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .contact-form button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .contact-form button:hover {
+            background: #c1121f;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-about p {
+            margin-bottom: 1.5rem;
+            color: #adb5bd;
+        }
+
+        .footer-links h4,
+        .footer-newsletter h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .footer-links h4:after,
+        .footer-newsletter h4:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background: var(--accent);
+            bottom: -8px;
+            left: 0;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .footer-newsletter p {
+            color: #adb5bd;
+            margin-bottom: 1.5rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .newsletter-form button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #495057;
+            color: #adb5bd;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                flex-direction: column;
+                background: white;
+                padding: 2rem;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                transition: var(--transition);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .hero {
+                padding: 8rem 0 4rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            section {
+                padding: 3rem 0;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .founders-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <div class="logo-icon"><i class="fas fa-cube"></i></div>
+                    <div class="logo-text">AGRIS GROUP</div>
+                </div>
+                
+                <div class="mobile-toggle" id="mobileToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                
+                <div class="nav-links" id="navLinks">
+                    <a href="#home">Beranda</a>
+                    <a href="#about">Tentang Kami</a>
+                    <a href="#founders">Pendiri</a>
+                    <a href="#services">Layanan</a>
+                    <a href="#contact">Kontak</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>PT AGRIS GROUP</h1>
+            <p>Perusahaan terdepan dalam solusi teknik, teknologi, dan konsultasi bisnis di Indonesia sejak 2005. Kami berkomitmen memberikan nilai terbaik bagi klien melalui inovasi, keahlian, serta layanan perancangan tata letak fasilitas yang berfokus pada efisiensi dan peningkatan produktivitas.</p>
+            <a href="#about" class="cta-button">Pelajari Lebih Lanjut</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tentang Perusahaan</h2>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Membangun Efisiensi, Merancang Produktivitas</h3>
+                    <p>PT AGRIS GROUP adalah perusahaan konsultan teknik yang berdiri sejak 2005 dengan fokus pada perancangan tata letak fasilitas dan optimasi proses industri. Berpengalaman melayani berbagai sektor, kami menjadi mitra strategis bagi perusahaan yang ingin meningkatkan efisiensi dan produktivitas operasional.</p>
+                    <p>Dengan tim ahli dan pendekatan berbasis analisis teknis, kami menyediakan layanan desain layout, studi alur produksi, dan konsultansi rekayasa yang terukur. Kami berkomitmen memberikan solusi modern dan berkelanjutan untuk mendukung pengembangan fasilitas yang efektif dan berstandar industri.</p>
+                </div>
+                
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">20+</span>
+                        <span class="stat-label">Tahun Pengalaman</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Klien Terlayani</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Tim Ahli</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  <!-- Founders Section -->
+<section id="founders" class="founders-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Tim Pendiri</h2>
+        </div>
+        
+        <div class="founders-container">
+            <!-- Founder 1 -->
+            <div class="founder-card">
+                <img src="https://i.postimg.cc/W3p4T0D6/Screenshot-2025-12-09-080401.png" alt="Budi Santoso" class="founder-img">
+                <div class="founder-info">
+                    <h3 class="founder-name">H. Ir. Muhamad Rizki Agung Priatno, S.T., M.T., Asean.Eng, IntPE</h3>
+                    <span class="founder-title">CEO & Pendiri</span>
+                    <p class="founder-bio">Direktur Utama yang memimpin perusahaan dengan visi strategis, berpengalaman dalam perencanaan, pengawasan, dan manajemen proyek teknik, serta berkomitmen menghadirkan solusi konsultansi berstandar global.</p>
+                    <div class="founder-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Founder 2 -->
+            <div class="founder-card">
+                <img src="https://i.postimg.cc/Y92DvG3g/Screenshot-2025-12-09-180412.png" alt="Sari Dewi" class="founder-img">
+                <div class="founder-info">
+                    <h3 class="founder-name">H. Ir. Letda Muhammad Agisna Maulana, S.T., M.T.</h3>
+                    <span class="founder-title">CTO & Co-Founder</span>
+                    <p class="founder-bio">CTO yang berperan dalam pengembangan teknologi perusahaan serta memberikan keahlian sebagai konsultan perancangan tata letak fasilitas untuk memastikan efisiensi dan kualitas teknis setiap proyek.</p>
+                    <div class="founder-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- Head of Division Section -->
+<section id="head-of-division" class="head-of-division-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Tim Head of Division</h2>
+        </div>
+        
+        <div class="founders-container">
+            <!-- Head of Division 1 -->
+            <div class="founder-card">
+                <img src="https://i.postimg.cc/NFtrbmKn/Screenshot-2025-12-09-182620.png" alt="Rina Sari" class="founder-img">
+                <div class="founder-info">
+                    <h3 class="founder-name">Rina Sari</h3>
+                    <span class="founder-title">Head of Divisi Supply Chain</span>
+                    <p class="founder-bio">Memimpin Divisi Supply Chain dengan fokus pada optimasi alur material dan berperan sebagai konsultan tata letak fasilitas untuk meningkatkan kelancaran proses dan efisiensi rantai pasok.</p>
+                    <div class="founder-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Head of Division 2 -->
+            <div class="founder-card">
+                <img src="https://i.postimg.cc/Hs4rWrrx/Screenshot-2025-12-09-181818.png" alt="Andi Pratama" class="founder-img">
+                <div class="founder-info">
+                    <h3 class="founder-name">Firda Solihat</h3>
+                    <span class="founder-title">Head of Divisi Finance & Accounting</span>
+                    <p class="founder-bio">Bertanggung jawab atas pengelolaan keuangan dan akuntansi perusahaan dengan akurasi tinggi untuk menjaga stabilitas finansial dan mendukung keputusan strategis.</p>
+                    <div class="founder-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Head of Division 3 -->
+            <div class="founder-card">
+                <img src="https://i.postimg.cc/cJDDp1R8/Screenshot-2025-12-09-182354.png" alt="Maya Putri" class="founder-img">
+                <div class="founder-info">
+                    <h3 class="founder-name">Maya Putri</h3>
+                    <span class="founder-title">Head of Divisi Research & Development (R&D)</span>
+                    <p class="founder-bio">Memimpin R&D dengan fokus pada inovasi teknis dan pengembangan solusi rekayasa yang modern, efektif, dan mendukung peningkatan kualitas layanan perusahaan.</p>
+                    <div class="founder-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Head of Division 4 -->
+            <div class="founder-card">
+                <img src="https://i.postimg.cc/fLKLvFYh/Screenshot-2025-12-09-180952.png" alt="Dedi Kurniawan" class="founder-img">
+                <div class="founder-info">
+                    <h3 class="founder-name">Dedi Kurniawan</h3>
+                    <span class="founder-title">Head of Quality Control</span>
+                    <p class="founder-bio">Bertanggung jawab memastikan kualitas proses dan output perusahaan melalui pengawasan, evaluasi, dan penerapan standar kualitas yang konsisten dan terukur.</p>
+                    <div class="founder-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Head of Division 5 -->
+            <div class="founder-card">
+                <img src="https://i.postimg.cc/k4fjdJW1/Screenshot-2025-12-09-182136.png" alt="Lina Hartono" class="founder-img">
+                <div class="founder-info">
+                    <h3 class="founder-name">Liana Agustina</h3>
+                    <span class="founder-title">Head of Maintenance</span>
+                    <p class="founder-bio">Memimpin kegiatan perawatan fasilitas dan peralatan untuk memastikan keandalan operasional dan meminimalkan downtime melalui manajemen maintenance yang efektif.
+
+Head of Produksi.</p>
+                    <div class="founder-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Head of Division 6 -->
+            <div class="founder-card">
+                <img src="https://i.postimg.cc/nzCFvzVh/Screenshot-2025-12-09-181204.png" alt="Fajar Setiawan" class="founder-img">
+                <div class="founder-info">
+                    <h3 class="founder-name">Fajar Setiawan</h3>
+                    <span class="founder-title">Head of Produksi</span>
+                    <p class="founder-bio">Mengelola seluruh proses produksi untuk mencapai output berkualitas, efisien, dan tepat waktu dengan kepemimpinan operasional yang disiplin dan terstruktur.</p>
+                    <div class="founder-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Layanan Kami</h2>
+            </div>
+            
+            <div class="services-container">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Eksekusi & Manajemen Konstruksi</h3>
+                    <p>Dukungan pengawasan, manajemen mutu, dan pendampingan proyek di lapangan hingga komisioning yang sukses.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Efisiensi & Kepatuhan Sistem</h3>
+                    <p>Optimasi operasional, peningkatan keandalan aset, dan audit kepatuhan regulasi untuk kinerja maksimal dan mitigasi risiko..</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>Desain & Strategi Proyek</h3>
+                    <p>Perencanaan teknis, studi kelayakan, dan desain rekayasa terperinci (DED) untuk menjamin proyek Anda solid sejak awal..</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Hubungi Kami</h2>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Mari Bekerja Sama</h3>
+                    <p>Kami siap membantu Anda mencapai tujuan bisnis. Hubungi kami untuk konsultasi gratis.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4>Alamat</h4>
+                                <p>Jalan Industri III No.5, Leuwigajah CimahI</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4>Telepon</h4>
+                                <p>0895-3215-65677</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4>Email</h4>
+                                <p>Agris.Group05@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <input type="text" placeholder="Nama Lengkap" required>
+                        <input type="email" placeholder="Email" required>
+                        <input type="text" placeholder="Perusahaan">
+                        <textarea rows="5" placeholder="Pesan Anda" required></textarea>
+                        <button type="submit">Kirim Pesan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">AGRIS GROUP</div>
+                    <p>Perusahaan terdepan dalam solusi teknologi dan konsultasi bisnis di Indonesia sejak 2005.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Tautan Cepat</h4>
+                    <ul>
+                        <li><a href="#home">Beranda</a></li>
+                        <li><a href="#about">Tentang Kami</a></li>
+                        <li><a href="#founders">Pendiri</a></li>
+                        <li><a href="#services">Layanan</a></li>
+                        <li><a href="#contact">Kontak</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h4>Newsletter</h4>
+                    <p>Berlangganan untuk mendapatkan informasi terbaru dari kami.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Email Anda" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 PT AGRIS GROUP. Semua Hak Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileToggle.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Terima kasih! Pesan Anda telah berhasil dikirim. Kami akan menghubungi Anda segera.');
+            contactForm.reset();
+        });
+        
+        // Newsletter form submission
+        const newsletterForm = document.querySelector('.newsletter-form');
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const emailInput = this.querySelector('input[type="email"]');
+            alert(`Terima kasih! Email ${emailInput.value} telah berhasil didaftarkan untuk newsletter.`);
+            emailInput.value = '';
+        });
+    </script>
+</body>
+</html>
